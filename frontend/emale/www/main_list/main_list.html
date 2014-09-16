@@ -1,0 +1,16 @@
+<ion-view title="list of E">
+    <ion-content class="padding">
+        <input type="text" class="text-box"  placeholder="enter E name/number" ng-model="eName"/>
+        <div class="list" ng-repeat="item in fullList | filter:eName">
+
+            <a class="item item-icon-right" ng-class="item.dangerColor"
+               ui-sref="info({ name:item.name })" >
+            <i class="icon" ng-class="item.icon"></i>
+                {{item.name}}
+                {{item.hebName}}
+                {{item.description}}
+            </a>
+        </div>
+
+    </ion-content>
+</ion-view>
