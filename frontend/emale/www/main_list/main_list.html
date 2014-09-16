@@ -1,16 +1,24 @@
 <ion-view title="list of E">
     <ion-content class="padding">
-        <input type="text" class="text-box"  placeholder="enter E name/number" ng-model="eName"/>
-        <div class="list" ng-repeat="item in fullList | filter:eName">
 
-            <a class="item item-icon-right" ng-class="item.dangerColor"
-               ui-sref="info({ name:item.name })" >
-            <i class="icon" ng-class="item.icon"></i>
-                {{item.name}}
-                {{item.hebName}}
-                {{item.description}}
-            </a>
-        </div>
+        <input type="text" ng-model="data.text"/>
+        <!-- all changes from Firebase magically appear here! -->
+        <h1>You said: {{ data.text }}</h1>
+
+
+        <ul>
+            <li ng-repeat="message in messages">
+                <!-- exit a message -->
+                <input ng-model="message.text" ng-change="messages.$save(message)" />
+                <!-- delete message -->
+                <button ng-click="messages.$remove(message)">X</button>
+            </li>
+        </ul>
+        <!-- push a new message into the array -->
+        <form ng-submit="addMessage(newMessageText)">
+            <input ng-model="newMessageText" />
+            <button type="submit">add message</button>
+        </form>
 
     </ion-content>
 </ion-view>
