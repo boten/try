@@ -1,24 +1,15 @@
 <ion-view title="list of E">
     <ion-content class="padding">
 
-        <input type="text" ng-model="data.text"/>
-        <!-- all changes from Firebase magically appear here! -->
-        <h1>You said: {{ data.text }}</h1>
+        <div class="list" ng-repeat="channel in channels">
+
+            <a class="item item-icon-right" ui-sref="info({name:channel.channel})" >
+                <i class="icon" ng-class=""></i>
+                {{channel.channel}}
+            </a>
+        </div>
 
 
-        <ul>
-            <li ng-repeat="message in messages">
-                <!-- exit a message -->
-                <input ng-model="message.text" ng-change="messages.$save(message)" />
-                <!-- delete message -->
-                <button ng-click="messages.$remove(message)">X</button>
-            </li>
-        </ul>
-        <!-- push a new message into the array -->
-        <form ng-submit="addMessage(newMessageText)">
-            <input ng-model="newMessageText" />
-            <button type="submit">add message</button>
-        </form>
 
     </ion-content>
 </ion-view>

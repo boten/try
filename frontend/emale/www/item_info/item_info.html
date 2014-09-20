@@ -1,23 +1,14 @@
 <ion-view title="info">
     <ion-content class="padding">
-        <h1>{{itemName}}</h1>
-        <!--<div>{{itemInfo}}</div>-->
-            <ul>
-                <li>
-                    <h3>hebrew name</h3>
-                    <p>שם בעברית</p>
-                </li>
+        <h1>{{channelName}}</h1>
+        <ul ng-repeat="msg in messageList">
+            <li>{{msg}}</li>
+        </ul>
 
-                <li>
-                    <h3>english name</h3>
-                    <p>Lorem ipsum dolor sit amet...</p>
-                </li>
-
-                <li>
-                    <h3>description</h3>
-                    <p>Lorem ipsum dolor sit amet...</p>
-                </li>
-            </ul>
+        <form ng-submit="addMsg()">
+            <input ng-model="newMsg.msg"/>
+            <input type="submit" value="Send"/>
+        </form>
 
 
     </ion-content>

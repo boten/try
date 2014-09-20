@@ -9,6 +9,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "hapi": "^6.8.1"
+    "diskdb": "^0.1.14",
+    "hapi": "^6.8.1",
+    "hapi-mongodb": "^2.2.0",
+    "hapi-socket": "^0.2.0",
+    "mongodb": "^1.4.12",
+    "mongoose": "^3.8.16",
+    "socket.io": "^1.1.0"
   }
 }
