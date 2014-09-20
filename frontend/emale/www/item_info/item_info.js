@@ -3,18 +3,18 @@
  */
 
 (function(){
-    function itemInfoController(scope,msg,state){
+    function itemInfoController(scope,msg,state,ionicNavBarDelegate){
         scope.newMsg = {channelName: state.params.name, msg:'write here'};
         console.log(msg.data[0].msg);
         scope.messageList= msg.data[0].msg;
         scope.channelName = msg.data[0].name;
 
-        var socket = io.connect("http://localhost:3000")
+        var socket = io.connect("http://localhost:3000");
 
-        socket.on("connect", function () {
-            console.log('client connected');
-            socket.emit("join", 'hello');
-        });
+//        socket.on("connect", function () {
+//            console.log('connected to room');
+//            //socket.emit("joinRoom", {});
+//        });
 
         socket.on("addNewMsg", function (msg) {
             console.log('got new msg from host');
@@ -30,9 +30,10 @@
             socket.emit("newMsg",scope.newMsg);
         }
 
+
     };
 
     angular.module('tvchat')
-        .controller('itemInfoController',['$scope','msg','$state',itemInfoController]);
+        .controller('itemInfoController',['$scope','msg','$state','$ionicNavBarDelegate',itemInfoController]);
 }());
 

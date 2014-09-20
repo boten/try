@@ -12,14 +12,27 @@ dbb.once('open', function callback () {
         name: String,
         msg : []
     });
+    var channelListSchema = mongoose.Schema({
+        name: []
+    });
 
       Channelmsgs = mongoose.model('channelmsgs', channelSchema);
+      ChannelList = mongoose.model('channellist', channelListSchema);
 //  ******************************
 //    channelmsg = new Channelmsgs({name:'22',msg: ['welcome']});
 //    channelmsg.save(function (err) {
 //        if (err) return console.error(err);
 //   });
+//
+//    channelList = new ChannelList({name:['10','22']});
+//    channelList.save(function (err) {
+//        if (err) return console.error(err);
+//    });
+//
 //  *****************************************
+
+
+
 
 //    fluffy = new Kitten({ name: 'fluffy' })
 //    console.log(fluffy.name) // 'fluffy'
@@ -48,14 +61,22 @@ var serverConfig = {
 
 var server = Hapi.createServer('localhost', 3000, serverConfig);
 
-var io = require("socket.io")(server.listener)
+var io = require("socket.io")(server.listener);
+
+var lobby = 'lobby';
+var channel_10 = 'channel_10';
+var channel_22 = 'channel_22';
 
 // get all items
 server.route({
     method: 'GET',
     path: '/api/1/channels-list',
     handler: function (request, reply) {
-        reply(db.channels_list.find());
+        ChannelList.find({},function (err, channel){
+            if (err) return console.error(err);
+            //console.log(channel[0])
+            reply(channel[0].name);
+        });
     }
 });
 
@@ -72,18 +93,18 @@ server.route({
     }
 });
 
-// post a new msg on channel (name)
-server.route({
-    method: 'POST',
-    path: '/api/1/channels-msg/{name}',
-    handler: function (request, reply) {
-//        Channelmsgs.find({name: request.params.name},function (err, channel){
-//            if (err) return console.error(err);
-//            reply(channel);
-//        });
-        reply(request.payload);
-    }
-});
+//// post a new msg on channel (name)
+//server.route({
+//    method: 'POST',
+//    path: '/api/1/channels-msg/{name}',
+//    handler: function (request, reply) {
+////        Channelmsgs.find({name: request.params.name},function (err, channel){
+////            if (err) return console.error(err);
+////            reply(channel);
+////        });
+//        reply(request.payload);
+//    }
+//});
 
 //// update an item
 //server.route({
@@ -122,17 +143,32 @@ server.start(function () {
 io.on('connection', function (socket) {
 
     // when the client emits 'new message', this listens and executes
-    socket.on('join', function (data) {
-        console.log('got it');
+    socket.on('joinLobby', function (data) {
+        //console.log(data);
+        if(data.oldRoom){
+            console.log('left: '+'channel_'+data.oldRoom)
+            socket.leave('channel_'+data.oldRoom);
+        }
+        socket.join(lobby);
+        console.log('joined lobby');
+    });
+
+    socket.on('joinRoom', function (data) {
+        socket.leave('channel_'+data.oldRoom);
+        socket.join('channel_'+data.newRoom);
+        console.log('left: '+'channel_'+data.oldRoom);
+        console.log('joined: '+'channel_'+data.newRoom);
     });
 
     socket.on('newMsg', function (data) {
-        console.log(data.channelName);
+        //console.log(data.channelName);
         Channelmsgs.update({name: data.channelName},{$push:{msg: data.msg}} ,function(err){
             if(err){
                 console.log(err);
             }else{
-                socket.broadcast.emit('addNewMsg',data.msg);
+                //socket.broadcast.emit('addNewMsg',data.msg);
+                socket.broadcast.to('channel_'+data.channelName).emit('addNewMsg',data.msg);
+                console.log('channel_'+data.channelName);
                 console.log("Successfully added");
             }
         });

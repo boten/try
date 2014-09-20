@@ -32,10 +32,11 @@
     <script src="main_list/main_list.js"></script>
     <script src="item_info/item_info.js"></script>
   </head>
-  <body ng-app="tvchat">
+  <body ng-app="tvchat" ng-controller="wrapperController">
 
     <ion-nav-bar class="nav-title-slide-ios7 bar-positive">
-        <ion-nav-back-button class="button-icon ion-arrow-left-c">
+        <ion-nav-back-button class="button-icon" ng-click="goBack()">
+            <i class="ion-arrow-left-c"></i> Back
         </ion-nav-back-button>
     </ion-nav-bar>
 

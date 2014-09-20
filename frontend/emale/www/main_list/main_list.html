@@ -1,11 +1,13 @@
 <ion-view title="list of E">
     <ion-content class="padding">
 
+
         <div class="list" ng-repeat="channel in channels">
 
-            <a class="item item-icon-right" ui-sref="info({name:channel.channel})" >
+            <a class="item item-icon-right"
+                    ng-click="joinroom({newRoom:channel, oldRoom:'lobby'})">
                 <i class="icon" ng-class=""></i>
-                {{channel.channel}}
+                {{channel}}
             </a>
         </div>
 

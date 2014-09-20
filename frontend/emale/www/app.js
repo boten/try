@@ -22,10 +22,12 @@ angular.module('tvchat', ['ionic','tvchat.services'])
                 url: '/:name',
                 templateUrl: 'item_info/item_info.html',
                 resolve:{
-                    msg: ['httpService','$state',function(httpService,state){
-                        console.log(state);
-                        //todo: fix how to get channel name? stat.params.name = undefined?
-                        return httpService.getChannelMsg('10');
+                    msg: ['httpService','$stateParams',function(httpService,stateParams){
+                        console.log('stateParams: ');
+                        console.log(stateParams);
+                        //todo: fix how to get channel name? state.params.name = undefined?
+                        //fixes: use stateParams that is already exist with resolve :)
+                        return httpService.getChannelMsg(stateParams.name);
                     }]
                 },
                 controller: 'itemInfoController',
@@ -33,6 +35,14 @@ angular.module('tvchat', ['ionic','tvchat.services'])
 
             })
     })
+    .controller('wrapperController', ['$scope','$ionicNavBarDelegate','$stateParams', function(scope,ionicNavBarDelegate,stateParams) {
+        scope.goBack = function() {
+           // console.log('stateParams');
+          //  console.log(stateParams);
+            socket.emit("joinLobby",{oldRoom:stateParams.name});
+            ionicNavBarDelegate.back();
+        };
+    }])
     .run(function($ionicPlatform) {
       $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -44,5 +54,7 @@ angular.module('tvchat', ['ionic','tvchat.services'])
           StatusBar.styleDefault();
         }
       });
+      socket = io.connect("http://localhost:3000");
+
     });
 
