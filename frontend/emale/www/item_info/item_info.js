@@ -4,7 +4,7 @@
 
 (function(){
     function itemInfoController(scope,msg,state,ionicNavBarDelegate){
-        scope.newMsg = {channelName: state.params.name, msg:'write here'};
+        scope.newMsg = {channelName: state.params.name, msg:''};
         console.log(msg.data[0].msg);
         scope.messageList= msg.data[0].msg;
         scope.channelName = msg.data[0].name;
@@ -28,7 +28,10 @@
         scope.addMsg = function(){
             scope.messageList.push(scope.newMsg.msg);
             socket.emit("newMsg",scope.newMsg);
+            scope.newMsg.msg ='';
         }
+
+
 
 
     };

@@ -1,7 +1,7 @@
 var Hapi = require('hapi');
-var db = require('diskDb').connect('data', ['channels_list','channels_msg']);
+//var db = require('diskDb').connect('data', ['channels_list','channels_msg']);
 var mongoose = require('mongoose');
-var channels = require('./data/data.js');
+//var channels = require('./data/data.js');
 mongoose.connect('mongodb://localhost/test');
 
 var dbb = mongoose.connection;
@@ -10,6 +10,7 @@ dbb.once('open', function callback () {
     console.log('connection good');
     var channelSchema = mongoose.Schema({
         name: String,
+        counter: Number,
         msg : []
     });
     var channelListSchema = mongoose.Schema({
@@ -18,19 +19,27 @@ dbb.once('open', function callback () {
 
       Channelmsgs = mongoose.model('channelmsgs', channelSchema);
       ChannelList = mongoose.model('channellist', channelListSchema);
+
 //  ******************************
-//    channelmsg = new Channelmsgs({name:'22',msg: ['welcome']});
-//    channelmsg.save(function (err) {
-//        if (err) return console.error(err);
-//   });
-//
-//    channelList = new ChannelList({name:['10','22']});
-//    channelList.save(function (err) {
-//        if (err) return console.error(err);
-//    });
-//
+    var firstRun = function() {
+        channelmsg = new Channelmsgs({name: '22', msg: ['welcome to 22'], counter:0});
+        channelmsg.save(function (err) {
+            if (err) return console.error(err);
+        });
+
+        channelmsg = new Channelmsgs({name: '10', msg: ['welcome to 10'],counter:0});
+        channelmsg.save(function (err) {
+            if (err) return console.error(err);
+        });
+
+        channelList = new ChannelList({name: ['10', '22']});
+        channelList.save(function (err) {
+            if (err) return console.error(err);
+        });
+    }
 //  *****************************************
 
+    //firstRun();
 
 
 
@@ -158,6 +167,43 @@ io.on('connection', function (socket) {
         socket.join('channel_'+data.newRoom);
         console.log('left: '+'channel_'+data.oldRoom);
         console.log('joined: '+'channel_'+data.newRoom);
+    });
+
+    socket.on('addToCounter', function (data) {
+        Channelmsgs.update({name: data.channelName},{$inc:{counter:1}} ,function(err){
+            if(err){
+                console.log(err);
+            }else{
+                //socket.broadcast.emit('addNewMsg',data.msg);
+                //socket.broadcast.to('channel_'+data.channelName).emit('addNewMsg',data.msg);
+                Channelmsgs.findOne({name: data.channelName},function(err,channel){
+                    if(err){
+                        console.log(err);
+                    }else{
+                        if(channel.counter >= 10){
+                            console.log('reset counter');
+                            //console.log(Channelmsgs);
+                            Channelmsgs.update({name: data.channelName},{$set: {counter:0}},function(err,da){
+                                if (err){
+                                    console.log(err)
+                                }else{
+                                    //update worked
+                                    // send msg-> "commercial is over"
+                                    // to all reg users
+                                }
+                            });
+                        }else{
+                            console.log('current counter: '+channel.counter);
+                        }
+
+
+
+                    }
+
+                });
+
+            }
+        });
     });
 
     socket.on('newMsg', function (data) {

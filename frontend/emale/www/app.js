@@ -42,6 +42,12 @@ angular.module('tvchat', ['ionic','tvchat.services'])
             socket.emit("joinLobby",{oldRoom:stateParams.name});
             ionicNavBarDelegate.back();
         };
+
+        scope.bingChannel = function(channelName){
+            socket.emit("addToCounter",{channelName: channelName});
+            //alert('bing');
+            //console.log('bing');
+        }
     }])
     .run(function($ionicPlatform) {
       $ionicPlatform.ready(function() {

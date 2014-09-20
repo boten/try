@@ -11,6 +11,10 @@
         //console.log(channel.data);
         scope.channels = channel.data;
 
+        scope.add = function(){
+            alert('hhhh');
+        };
+
         scope.joinroom = function(data){
             console.log(data);
             state.go('info', {name: data.newRoom});

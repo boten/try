@@ -1,14 +1,15 @@
-<ion-view title="list of E">
+<ion-view title="list of channels">
     <ion-content class="padding">
 
-
         <div class="list" ng-repeat="channel in channels">
-
-            <a class="item item-icon-right"
-                    ng-click="joinroom({newRoom:channel, oldRoom:'lobby'})">
-                <i class="icon" ng-class=""></i>
-                {{channel}}
-            </a>
+              <div >
+            <a class="item" ng-click="joinroom({newRoom:channel, oldRoom:'lobby'})">
+                    {{channel}}
+                </a>
+            <button class="button button-positive float-left" ng-click="bingChannel(channel)">
+                <i class="icon ion-android-add"></i>
+            </button>
+              </div>
         </div>
 
 

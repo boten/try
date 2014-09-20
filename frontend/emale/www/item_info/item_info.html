@@ -1,13 +1,16 @@
 <ion-view title="you are watching channnel {{channelName}}">
     <ion-content class="padding">
         <h1>{{channelName}}</h1>
+        <button class="button button-positive float-left" ng-click="bingChannel(channelName)">
+            <i class="icon ion-android-add"></i>
+        </button>
         <ul ng-repeat="msg in messageList">
             <li>{{msg}}</li>
         </ul>
 
         <form ng-submit="addMsg()">
-            <input ng-model="newMsg.msg"/>
-            <input type="submit" value="Send"/>
+            <input ng-model="newMsg.msg" placeholder="type msg heres"/>
+            <input type="submit" value="Send" />
         </form>
 
 
