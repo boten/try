@@ -29,6 +29,19 @@ input[type=text]:focus, textarea:focus {
     border: 1px solid rgba(81, 203, 238, 1);
 }
 
-.float-left{
+.float-right{
     float: right;
+}
+
+.decrease-width{
+    width:90%;
+}
+
+.remove-border-padding{
+    border:none;
+    padding: 0px;
+}
+
+.btn-position-center{
+    margin-top: 0px;
 }

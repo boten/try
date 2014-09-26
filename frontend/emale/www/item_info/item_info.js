@@ -3,12 +3,12 @@
  */
 
 (function(){
-    function itemInfoController(scope,msg,state,ionicNavBarDelegate){
+    function itemInfoController(scope,msg,state,timeout){
         scope.newMsg = {channelName: state.params.name, msg:''};
-        console.log(msg.data[0].msg);
+        //console.log(msg.data[0].msg);
         scope.messageList= msg.data[0].msg;
         scope.channelName = msg.data[0].name;
-
+        scope.disableBtn = false;
         var socket = io.connect("http://localhost:3000");
 
 //        socket.on("connect", function () {
@@ -31,12 +31,20 @@
             scope.newMsg.msg ='';
         }
 
+        scope.bingChannel = function(channelName){
+            socket.emit("addToCounter",{channelName: channelName});
+            scope.disableBtn = true;
+            timeout(function(){
+                scope.disableBtn = false;
+            },60000); // 1 min
+
+        }
 
 
 
     };
 
     angular.module('tvchat')
-        .controller('itemInfoController',['$scope','msg','$state','$ionicNavBarDelegate',itemInfoController]);
+        .controller('itemInfoController',['$scope','msg','$state','$timeout',itemInfoController]);
 }());
 

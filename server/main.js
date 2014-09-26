@@ -14,7 +14,9 @@ dbb.once('open', function callback () {
         msg : []
     });
     var channelListSchema = mongoose.Schema({
-        name: []
+        name : String,
+        listening : Boolean
+
     });
 
       Channelmsgs = mongoose.model('channelmsgs', channelSchema);
@@ -32,7 +34,11 @@ dbb.once('open', function callback () {
             if (err) return console.error(err);
         });
 
-        channelList = new ChannelList({name: ['10', '22']});
+        channelList = new ChannelList({name: '10' ,listening: false});
+        channelList.save(function (err) {
+            if (err) return console.error(err);
+        });
+        channelList = new ChannelList({name: '22' ,listening: false});
         channelList.save(function (err) {
             if (err) return console.error(err);
         });
@@ -83,8 +89,8 @@ server.route({
     handler: function (request, reply) {
         ChannelList.find({},function (err, channel){
             if (err) return console.error(err);
-            //console.log(channel[0])
-            reply(channel[0].name);
+            console.log(channel)
+            reply(channel);
         });
     }
 });

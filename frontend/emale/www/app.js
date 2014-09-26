@@ -25,7 +25,7 @@ angular.module('tvchat', ['ionic','tvchat.services'])
                     msg: ['httpService','$stateParams',function(httpService,stateParams){
                         console.log('stateParams: ');
                         console.log(stateParams);
-                        //todo: fix how to get channel name? state.params.name = undefined?
+                        //done: fix how to get channel name -> state.params.name = undefined?
                         //fixes: use stateParams that is already exist with resolve :)
                         return httpService.getChannelMsg(stateParams.name);
                     }]
@@ -43,11 +43,6 @@ angular.module('tvchat', ['ionic','tvchat.services'])
             ionicNavBarDelegate.back();
         };
 
-        scope.bingChannel = function(channelName){
-            socket.emit("addToCounter",{channelName: channelName});
-            //alert('bing');
-            //console.log('bing');
-        }
     }])
     .run(function($ionicPlatform) {
       $ionicPlatform.ready(function() {

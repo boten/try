@@ -3,12 +3,20 @@
 
         <div class="list" ng-repeat="channel in channels">
               <div >
-            <a class="item" ng-click="joinroom({newRoom:channel, oldRoom:'lobby'})">
-                    {{channel}}
-                </a>
-            <button class="button button-positive float-left" ng-click="bingChannel(channel)">
-                <i class="icon ion-android-add"></i>
-            </button>
+            <div class="item item-button-right">
+                 <a class="item decrease-width remove-border-padding" ng-click="joinroom({newRoom:channel.name, oldRoom:'lobby'})" >
+                        {{channel.name}}
+                 </a>
+                <div class="buttons btn-position-center">
+                    <button class="button button-balanced" ng-click="listenToChannel(channel)" ng-disabled="channel.listening">
+                        <i class="icon ion-android-add"></i>
+                    </button>
+                    <button class="button button-assertive" ng-click="dontListenToChannel(channel)" ng-disabled="!channel.listening">
+                        <i class="icon ion-android-add"></i>
+                    </button>
+                </div>
+                </div>
+
               </div>
         </div>
 

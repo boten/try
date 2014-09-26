@@ -11,9 +11,19 @@
         //console.log(channel.data);
         scope.channels = channel.data;
 
-        scope.add = function(){
-            alert('hhhh');
+        scope.listenStatus = {status : false};
+
+        scope.listenToChannel = function(channel){
+            channel.listening = true;
+
         };
+
+        scope.dontListenToChannel = function(channel){
+            channel.listening = false;
+
+        };
+
+
 
         scope.joinroom = function(data){
             console.log(data);
