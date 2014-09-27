@@ -183,7 +183,7 @@ io.on('connection', function (socket) {
     });
 
     socket.on('dontListenChannel', function (data) {
-        console.log(data);
+        //console.log(data);
         socket.leave('channel_'+data.name+'_listen');
         console.log('remove listen to channel: '+data.name);
     });

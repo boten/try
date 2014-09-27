@@ -35,7 +35,7 @@ angular.module('tvchat', ['ionic','tvchat.services'])
 
             })
     })
-    .controller('wrapperController', ['$scope','$ionicNavBarDelegate','$stateParams', function(scope,ionicNavBarDelegate,stateParams) {
+    .controller('wrapperController', ['$scope','$ionicNavBarDelegate','$stateParams','$timeout', function(scope,ionicNavBarDelegate,stateParams,timeout) {
         scope.goBack = function() {
            // console.log('stateParams');
           //  console.log(stateParams);
@@ -47,6 +47,16 @@ angular.module('tvchat', ['ionic','tvchat.services'])
             console.log('break over '+channel);
             alert('breaks over on '+channel);
         });
+
+        scope.disableBtn = false;
+
+        scope.bingChannel = function(channelName){
+            socket.emit("addToCounter",{channelName: channelName});
+            scope.disableBtn = true;
+            timeout(function(){
+                scope.disableBtn = false;
+            },60000); // 1 min
+        }
 
     }])
     .run(function($ionicPlatform) {

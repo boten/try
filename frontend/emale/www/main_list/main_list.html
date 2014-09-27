@@ -7,11 +7,14 @@
                  <a class="item decrease-width remove-border-padding" ng-click="joinroom({newRoom:channel.name, oldRoom:'lobby'})" >
                         {{channel.name}}
                  </a>
-                <div class="buttons btn-position-center">
-                    <button class="button button-balanced" ng-click="listenToChannel(channel)" ng-disabled="channel.listening">
-                        <i class="icon ion-android-add"></i>
+                <div class="buttons btn-position-center ">
+                    <button class="button button-balanced rounded" ng-click="listenToChannel(channel)" ng-disabled="channel.listening">
+                        <i class="icon ion-android-checkmark"></i>
                     </button>
-                    <button class="button button-assertive" ng-click="dontListenToChannel(channel)" ng-disabled="!channel.listening">
+                    <button class="button button-assertive rounded" ng-click="dontListenToChannel(channel)" ng-disabled="!channel.listening">
+                        <i class="icon ion-android-close"></i>
+                    </button>
+                    <button class="button button-positive float-right rounded" ng-click="bingChannel(channel.name)" ng-disabled="disableBtn">
                         <i class="icon ion-android-add"></i>
                     </button>
                 </div>
