@@ -15,18 +15,18 @@
 
         scope.listenToChannel = function(channel){
             channel.listening = true;
+            socket.emit('listenChannel',channel);
 
         };
 
         scope.dontListenToChannel = function(channel){
             channel.listening = false;
-
+            socket.emit('dontListenChannel',channel);
         };
 
 
 
         scope.joinroom = function(data){
-            console.log(data);
             state.go('info', {name: data.newRoom});
             socket.emit('joinRoom',data);
         }
@@ -35,7 +35,6 @@
             console.log('connected to lobby');
             socket.emit("joinLobby",{});
         });
-
 
     }
 

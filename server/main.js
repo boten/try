@@ -16,7 +16,6 @@ dbb.once('open', function callback () {
     var channelListSchema = mongoose.Schema({
         name : String,
         listening : Boolean
-
     });
 
       Channelmsgs = mongoose.model('channelmsgs', channelSchema);
@@ -80,7 +79,10 @@ var io = require("socket.io")(server.listener);
 
 var lobby = 'lobby';
 var channel_10 = 'channel_10';
+var channel_10_listen = 'channel_10_listen';
 var channel_22 = 'channel_22';
+var channel_22_listen = 'channel_22_listen';
+var counter_limit = 2;
 
 // get all items
 server.route({
@@ -89,7 +91,7 @@ server.route({
     handler: function (request, reply) {
         ChannelList.find({},function (err, channel){
             if (err) return console.error(err);
-            console.log(channel)
+            //console.log(channel)
             reply(channel);
         });
     }
@@ -100,7 +102,7 @@ server.route({
     method: 'GET',
     path: '/api/1/channels-msg/{name}',
     handler: function (request, reply) {
-        console.log(request.params.name);
+        //console.log(request.params.name);
         Channelmsgs.find({name: request.params.name},function (err, channel){
             if (err) return console.error(err);
             reply(channel);
@@ -175,6 +177,17 @@ io.on('connection', function (socket) {
         console.log('joined: '+'channel_'+data.newRoom);
     });
 
+    socket.on('listenChannel', function (data) {
+        socket.join('channel_'+data.name+'_listen');
+        console.log('listen to channel: '+data.name);
+    });
+
+    socket.on('dontListenChannel', function (data) {
+        console.log(data);
+        socket.leave('channel_'+data.name+'_listen');
+        console.log('remove listen to channel: '+data.name);
+    });
+
     socket.on('addToCounter', function (data) {
         Channelmsgs.update({name: data.channelName},{$inc:{counter:1}} ,function(err){
             if(err){
@@ -186,7 +199,7 @@ io.on('connection', function (socket) {
                     if(err){
                         console.log(err);
                     }else{
-                        if(channel.counter >= 10){
+                        if(channel.counter >= counter_limit){
                             console.log('reset counter');
                             //console.log(Channelmsgs);
                             Channelmsgs.update({name: data.channelName},{$set: {counter:0}},function(err,da){
@@ -196,6 +209,7 @@ io.on('connection', function (socket) {
                                     //update worked
                                     // send msg-> "commercial is over"
                                     // to all reg users
+                                    socket.broadcast.to('channel_'+data.channelName+'_listen').emit('breakIsOver',data.channelName);
                                 }
                             });
                         }else{

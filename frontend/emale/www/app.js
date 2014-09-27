@@ -43,6 +43,11 @@ angular.module('tvchat', ['ionic','tvchat.services'])
             ionicNavBarDelegate.back();
         };
 
+        socket.on("breakIsOver", function (channel) {
+            console.log('break over '+channel);
+            alert('breaks over on '+channel);
+        });
+
     }])
     .run(function($ionicPlatform) {
       $ionicPlatform.ready(function() {

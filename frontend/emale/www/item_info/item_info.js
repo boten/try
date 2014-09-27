@@ -37,10 +37,7 @@
             timeout(function(){
                 scope.disableBtn = false;
             },60000); // 1 min
-
         }
-
-
 
     };
 
