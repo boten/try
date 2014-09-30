@@ -2,12 +2,11 @@ var Hapi = require('hapi');
 //var db = require('diskDb').connect('data', ['channels_list','channels_msg']);
 var mongoose = require('mongoose');
 //var channels = require('./data/data.js');
-mongoose.connect('mongodb://localhost/test');
+mongoose.connect('mongodb://tv-chat:boten1900@ds041150.mongolab.com:41150/channels');
+
 
 var dbb = mongoose.connection;
 dbb.on('error', console.error.bind(console, 'connection error:'));
-dbb.once('open', function callback () {
-    console.log('connection good');
     var channelSchema = mongoose.Schema({
         name: String,
         counter: Number,
@@ -62,7 +61,7 @@ dbb.once('open', function callback () {
 //        console.log(kittens)
 //    });
 
-});
+
 
 
 
