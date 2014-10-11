@@ -35,7 +35,21 @@ angular.module('tvchat', ['ionic','tvchat.services'])
 
             })
     })
-    .controller('wrapperController', ['$scope','$ionicNavBarDelegate','$stateParams','$timeout', function(scope,ionicNavBarDelegate,stateParams,timeout) {
+    .controller('wrapperController', ['$scope','$ionicNavBarDelegate','$stateParams','$timeout','$ionicLoading', function(scope,ionicNavBarDelegate,stateParams,timeout,$ionicLoading) {
+
+        scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+
+            if (toState.resolve) {
+                $ionicLoading.show({
+                    template: 'Loading...'
+                });
+            }
+
+        });
+        scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+            $ionicLoading.hide();
+        });
+
         scope.goBack = function() {
            // console.log('stateParams');
           //  console.log(stateParams);

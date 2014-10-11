@@ -2,23 +2,22 @@
     <ion-content class="padding">
 
         <div class="list" ng-repeat="channel in channels">
-              <div >
-            <div class="item item-button-right">
-                 <a class="item decrease-width remove-border-padding" ng-click="joinroom({newRoom:channel.name, oldRoom:'lobby'})" >
-                        {{channel.name}}
-                 </a>
-                <div class="buttons btn-position-center ">
-                    <button class="button button-balanced rounded" ng-click="listenToChannel(channel)" ng-disabled="channel.listening">
+            <div class="item item-avatar">
+                <div class="button-bar btn-position-center margin">
+                    <a ng-click="joinroom({newRoom:channel.name, oldRoom:'lobby'})">
+                        <img src="img/{{channel.name}}.jpg" class="channel-pic"  alt=""/>
+                    </a>
+                    <a class="button button-balanced rounded" ng-click="listenToChannel(channel)" ng-disabled="channel.listening">
                         <i class="icon ion-android-checkmark"></i>
-                    </button>
-                    <button class="button button-assertive rounded" ng-click="dontListenToChannel(channel)" ng-disabled="!channel.listening">
+                    </a>
+                    <a class="button button-assertive rounded" ng-click="dontListenToChannel(channel)" ng-disabled="!channel.listening">
                         <i class="icon ion-android-close"></i>
-                    </button>
-                    <button class="button button-positive float-right rounded" ng-click="bingChannel(channel.name)" ng-disabled="disableBtn">
+                    </a>
+                    <a class="button button-positive rounded" ng-click="bingChannel(channel.name)" ng-disabled="disableBtn">
                         <i class="icon ion-android-add"></i>
-                    </button>
+                    </a>
                 </div>
-                </div>
+            </div>
 
               </div>
         </div>

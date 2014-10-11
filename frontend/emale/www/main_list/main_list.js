@@ -14,6 +14,7 @@
         scope.listenStatus = {status : false};
 
         scope.listenToChannel = function(channel){
+
             channel.listening = true;
             socket.emit('listenChannel',channel);
 
