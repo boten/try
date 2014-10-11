@@ -225,19 +225,27 @@ io.on('connection', function (socket) {
         });
     });
 
+//    socket.on('newMsg', function (data) {
+//        //console.log(data.channelName);
+//        Channelmsgs.update({name: data.channelName},{$push:{msg: data.msg}} ,function(err){
+//            if(err){
+//                console.log(err);
+//            }else{
+//                //socket.broadcast.emit('addNewMsg',data.msg);
+//                socket.broadcast.to('channel_'+data.channelName).emit('addNewMsg',data.msg);
+//                console.log('channel_'+data.channelName);
+//                console.log("Successfully added");
+//            }
+//        });
+//        console.log('new msg was added to channel: '+data.channelName);
+//    });
+
     socket.on('newMsg', function (data) {
-        //console.log(data.channelName);
-        Channelmsgs.update({name: data.channelName},{$push:{msg: data.msg}} ,function(err){
-            if(err){
-                console.log(err);
-            }else{
-                //socket.broadcast.emit('addNewMsg',data.msg);
-                socket.broadcast.to('channel_'+data.channelName).emit('addNewMsg',data.msg);
-                console.log('channel_'+data.channelName);
-                console.log("Successfully added");
-            }
-        });
+        socket.broadcast.to('channel_'+data.channelName).emit('addNewMsg',data.msg);
+        console.log('channel_'+data.channelName);
         console.log('new msg was added to channel: '+data.channelName);
     });
+
+
 
 });
