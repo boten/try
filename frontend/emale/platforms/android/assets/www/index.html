@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="main_list/main_list.css" rel="stylesheet">
+    <link href="item_info/item_info.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="http://quiet-ridge-6377.herokuapp.com/socket.io/socket.io.js"></script>
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="lib/angular-local-storage/angular-local-storage.min.js"></script>
+    <script src="lib/firebase/firebase.js"></script>
+    <script src="lib/angularfire/dist/angularfire.min.js"></script>
+
+
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="services/data_service.js"></script>
+      <script src="services/http_service.js"></script>
+    <script src="app.js"></script>
+    <script src="main_list/main_list.js"></script>
+    <script src="item_info/item_info.js"></script>
+  </head>
+  <body ng-app="tvchat" ng-controller="wrapperController" class="platform-android platform-cordova platform-webview">
+
+    <ion-nav-bar class="nav-title-slide-ios7 bar-positive">
+        <ion-nav-back-button class="button-icon" ng-click="goBack()">
+            <i class="ion-arrow-left-c"></i> Back
+        </ion-nav-back-button>
+    </ion-nav-bar>
+
+
+    <ion-nav-view animation="slide-left-right"></ion-nav-view>
+
+  </body>
+</html>

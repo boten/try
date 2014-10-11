@@ -1,0 +1,3 @@
+# view AndroidManifest.xml #generated:6
+-keep class com.ionicframework.emale549902.emale { <init>(...); }
+
