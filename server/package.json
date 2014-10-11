@@ -1,20 +1,26 @@
 {
-  "name": "server",
-  "version": "0.1.0",
-  "description": "emale API server",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "diskdb": "^0.1.14",
-    "hapi": "^6.8.1",
-    "hapi-mongodb": "^2.2.0",
-    "hapi-socket": "^0.2.0",
-    "mongodb": "^1.4.12",
-    "mongoose": "^3.8.16",
-    "socket.io": "^1.1.0"
-  }
+    "name": "server",
+    "version": "0.1.0",
+    "description": "tv chat API server",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node index.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "diskdb": "^0.1.14",
+        "hapi": "^6.8.1",
+        "hapi-mongodb": "^2.2.0",
+        "hapi-socket": "^0.2.0",
+        "mongodb": "^1.4.12",
+        "mongoose": "^3.8.16",
+        "socket.io": "^1.1.0"
+    },
+    "engines": {
+        "node": "0.10.x",
+        "npm": "1.2.x"
+    }
+
 }

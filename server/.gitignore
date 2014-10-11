@@ -1,0 +1,10 @@
+<<<<<<< HEAD
+node_modules
+
+=======
+
+server/node_modules
+frontend/emale/node_modules
+frontend/emale/www/lib
+admin/components
+>>>>>>> b9f10da4bc7f27e705d693eed48c8315b42626a9
