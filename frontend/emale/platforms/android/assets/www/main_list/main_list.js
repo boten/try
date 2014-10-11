@@ -5,7 +5,7 @@
 (function(){
     function mainListController(scope,channel,state){
 
-        var socket = io.connect('http://quiet-ridge-6377.herokuapp.com');
+        var socket = io.connect('http://quiet-ridge-6377.herokuapp.com:80');
 
         //scope.channels = [{channel:'1'},{channel:'2'}];
         //console.log(channel.data);

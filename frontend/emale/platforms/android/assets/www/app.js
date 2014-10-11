@@ -70,7 +70,7 @@ angular.module('tvchat', ['ionic','tvchat.services'])
           StatusBar.styleDefault();
         }
       });
-      socket = io.connect('http://0.0.0.0:5000');
+      socket = io.connect('http://quiet-ridge-6377.herokuapp.com:80');
 
     });
 
