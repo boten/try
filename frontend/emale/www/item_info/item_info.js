@@ -9,6 +9,8 @@
         scope.messageList= msg.data[0].msg;
         scope.channelName = msg.data[0].name;
 
+
+        scope.time = new Date().getTime();
 //        socket.on("connect", function () {
 //            console.log('connected to room');
 //            //socket.emit("joinRoom", {});

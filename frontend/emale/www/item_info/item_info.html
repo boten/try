@@ -6,15 +6,43 @@
             <i class="icon ion-android-add"></i>
         </button>
         </div>
-        <ul ng-repeat="msg in messageList">
-            <li>{{msg}}</li>
-        </ul>
+        <div ng-repeat="msg in messageList">
+            <section class="module">
+
+                <ol class="discussion">
+                    <li   class="other">
+                        <div class="avatar">
+                            <img src="img/ionic.png" />
+                        </div>
+                        <div class="messages">
+                            <p>{{msg}}</p>
+                            <time>{{time | date : format : short}}</time>
+                        </div>
+                    </li>
+                    <li   class="self">
+                        <div class="avatar">
+                            <img src="img/ionic.png" />
+                        </div>
+                        <div class="messages">
+                            <p>{{msg}}</p>
+                            <time>{{time | date : format : short}}</time>
+                        </div>
+                    </li>
+
+                </ol>
+
+            </section>
+        </div>
 
         <form ng-submit="addMsg()">
-            <input ng-model="newMsg.msg" placeholder="type msg heres"/>
-            <input type="submit" value="Send" />
+            <input type="text" ng-model="newMsg.msg" placeholder="type msg heres"/>
+            <input class="button button-small button-positive" type="submit" value="Send" />
         </form>
 
 
     </ion-content>
 </ion-view>
+
+
+
+
