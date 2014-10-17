@@ -7,10 +7,10 @@
                     <a ng-click="joinroom({newRoom:channel.name, oldRoom:'lobby'})">
                         <img src="img/{{channel.name}}.jpg" class="channel-pic"  alt=""/>
                     </a>
-                    <a class="button button-balanced rounded" ng-click="listenToChannel(channel)" ng-disabled="channel.listening">
+                    <a class="button button-balanced rounded" ng-click="listenToChannel(channel)" ng-disabled="listening(channel)">
                         <i class="icon ion-android-checkmark"></i>
                     </a>
-                    <a class="button button-assertive rounded" ng-click="dontListenToChannel(channel)" ng-disabled="!channel.listening">
+                    <a class="button button-assertive rounded" ng-click="dontListenToChannel(channel)" ng-disabled="!listening(channel)">
                         <i class="icon ion-android-close"></i>
                     </a>
                     <a class="button button-positive rounded" ng-click="bingChannel(channel.name)" ng-disabled="disableBtn">

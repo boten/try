@@ -23,8 +23,8 @@ angular.module('tvchat', ['ionic','tvchat.services'])
                 templateUrl: 'item_info/item_info.html',
                 resolve:{
                     msg: ['httpService','$stateParams',function(httpService,stateParams){
-                        console.log('stateParams: ');
-                        console.log(stateParams);
+                        //console.log('stateParams: ');
+                        //console.log(stateParams);
                         //done: fix how to get channel name -> state.params.name = undefined?
                         //fixes: use stateParams that is already exist with resolve :)
                         return httpService.getChannelMsg(stateParams.name);
@@ -72,8 +72,12 @@ angular.module('tvchat', ['ionic','tvchat.services'])
             },60000); // 1 min
         }
 
+
     }])
-    .run(function($ionicPlatform) {
+    .constant('socketConstant',{
+        socket: io.connect('http://quiet-ridge-6377.herokuapp.com:80')
+    })
+    .run(function($ionicPlatform,socketConstant) {
       $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -84,7 +88,8 @@ angular.module('tvchat', ['ionic','tvchat.services'])
           StatusBar.styleDefault();
         }
       });
-      socket = io.connect('http://quiet-ridge-6377.herokuapp.com:80');
+        //making socket available all over the app:
+      socket = socketConstant.socket;
 
     });
 

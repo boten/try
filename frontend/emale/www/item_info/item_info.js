@@ -8,7 +8,6 @@
         //console.log(msg.data[0].msg);
         scope.messageList= msg.data[0].msg;
         scope.channelName = msg.data[0].name;
-        var socket = io.connect('http://quiet-ridge-6377.herokuapp.com:80');
 
 //        socket.on("connect", function () {
 //            console.log('connected to room');

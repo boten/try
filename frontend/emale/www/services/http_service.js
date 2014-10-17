@@ -7,7 +7,8 @@
     function httpService(http){
 
         this.getChannelsList= function(){
-           return  http.get('http://quiet-ridge-6377.herokuapp.com/api/1/channels-list').then(function(channelsList){
+           return  http.get('http://quiet-ridge-6377.herokuapp.com/api/1/channels-list')
+               .then(function(channelsList){
                 return channelsList
             },function(err){
                 console.log(err)

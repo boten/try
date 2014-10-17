@@ -3,25 +3,30 @@
  */
 
 (function(){
-    function mainListController(scope,channel,state){
+    function mainListController(scope,channel,state,dataService){
 
-        var socket = io.connect('http://quiet-ridge-6377.herokuapp.com:80');
-
-        //scope.channels = [{channel:'1'},{channel:'2'}];
-        //console.log(channel.data);
+      // 'channel' is coming from the resolve ui-router
         scope.channels = channel.data;
 
-        scope.listenStatus = {status : false};
+        //scope.listenStatus = {status : false};
+
+
+        scope.listening = function(channel){
+            return dataService.getChannelListeningStatus(channel);
+        }
 
         scope.listenToChannel = function(channel){
-
-            channel.listening = true;
+            //channel.listening = true;
+          //todo : why this fun calles 2 times ? when pressing the listen btn?
+          alert('reg')
+            dataService.addListenChannel(channel)
             socket.emit('listenChannel',channel);
 
         };
 
         scope.dontListenToChannel = function(channel){
-            channel.listening = false;
+            //channel.listening = false;
+            dataService.removeListenChannel(channel)
             socket.emit('dontListenChannel',channel);
         };
 
@@ -40,6 +45,6 @@
     }
 
     angular.module('tvchat')
-        .controller('mainListController',['$scope','channel','$state',mainListController]);
+        .controller('mainListController',['$scope','channel','$state','dataService',mainListController]);
 }());
 
