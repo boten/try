@@ -7,11 +7,12 @@
         var alternate,
             isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
 
-        scope.newMsg = {channelName: state.params.name, msg:''};
+        scope.myId = '12345';
+        scope.newMsg = {channelName: state.params.name, msg:'' ,userId : scope.myId};
         //console.log(msg.data[0].msg);
         scope.messageList= [];
         scope.channelName = state.params.name;
-        scope.myId = '12345';
+
 
         scope.time = new Date().getTime();
 
@@ -20,6 +21,7 @@
             scope.$apply(function() {
                 //wrapped this within $apply
                 scope.messageList.push(msg);
+                $ionicScrollDelegate.scrollBottom();
             });
 
         });
@@ -33,7 +35,7 @@
                 });
             socket.emit("newMsg",scope.newMsg);
             scope.newMsg.msg ='';
-            $ionicScrollDelegate.scrollBottom(true);
+            $ionicScrollDelegate.scrollBottom();
         }
 
 
