@@ -23,8 +23,6 @@ angular.module('tvchat', ['ionic','tvchat.services'])
                 templateUrl: 'item_info/item_info.html',
                 resolve:{
                     msg: ['httpService','$stateParams',function(httpService,stateParams){
-                        //console.log('stateParams: ');
-                        //console.log(stateParams);
                         //done: fix how to get channel name -> state.params.name = undefined?
                         //fixes: use stateParams that is already exist with resolve :)
                         return httpService.getChannelMsg(stateParams.name);

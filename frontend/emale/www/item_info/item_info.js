@@ -4,7 +4,9 @@
 
 (function(){
     function itemInfoController(scope,msg,state,$timeout,$ionicScrollDelegate){
-        debugger;
+        var alternate,
+            isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
+
         scope.newMsg = {channelName: state.params.name, msg:''};
         //console.log(msg.data[0].msg);
         scope.messageList= [];
@@ -34,18 +36,16 @@
             $ionicScrollDelegate.scrollBottom(true);
         }
 
-        var alternate,
-            isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
 
-        scope.sendMessage = function() {
-            alternate = !alternate;
-            scope.messages.push({
-                userId: alternate ? '12345' : '54321',
-                msg: scope.data.message
-            });
-            delete scope.data.message;
-            $ionicScrollDelegate.scrollBottom(true);
-        }
+//        scope.sendMessage = function() {
+//            alternate = !alternate;
+//            scope.messages.push({
+//                userId: alternate ? '12345' : '54321',
+//                msg: scope.data.message
+//            });
+//            delete scope.data.message;
+//            $ionicScrollDelegate.scrollBottom(true);
+//        }
 
         scope.inputUp = function() {
             if (isIOS) scope.data.keyboardHeight = 216;
