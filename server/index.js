@@ -255,7 +255,8 @@ io.on('connection', function (socket) {
 //    });
 
     socket.on('newMsg', function (data) {
-        socket.broadcast.to('channel_'+data.channelName).emit('addNewMsg',data.msg);
+        console.log(data)
+        socket.broadcast.to('channel_'+data.channelName).emit('addNewMsg',data);
         console.log('channel_'+data.channelName);
         console.log('new msg was added to channel: '+data.channelName);
     });
