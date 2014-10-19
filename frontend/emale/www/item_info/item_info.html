@@ -1,48 +1,62 @@
 <ion-view title="watching channnel {{channelName}}">
-    <ion-content class="padding">
-        <div>
+
+    <ion-pane class="messaging-view">
+        <ion-content class="content-stable" ng-style="{ bottom: data.keyboardHeight + 'px' }">
             <img src="img/{{channelName}}.jpg" class="channel-pic" alt=""/>
-        <button class="button button-positive float-right" ng-click="bingChannel(channelName)" ng-disabled="disableBtn">
-            <i class="icon ion-android-add"></i>
-        </button>
-        </div>
-        <div ng-repeat="msg in messageList">
-            <section class="module">
+            <button class="button button-positive float-right" ng-click="bingChannel(channelName)" ng-disabled="disableBtn">
+                <i class="icon ion-android-add"></i>
+            </button>
 
-                <ol class="discussion">
-                    <li   class="other">
-                        <div class="avatar">
-                            <img src="img/ionic.png" />
-                        </div>
-                        <div class="messages">
-                            <p>{{msg}}</p>
-                            <time>{{time | date : format : short}}</time>
-                        </div>
-                    </li>
-                    <li   class="self">
-                        <div class="avatar">
-                            <img src="img/ionic.png" />
-                        </div>
-                        <div class="messages">
-                            <p>{{msg}}</p>
-                            <time>{{time | date : format : short}}</time>
-                        </div>
-                    </li>
+            <div ng-repeat="message in messageList" ng-class="{ other: message.userId != myId }" class="message">
 
-                </ol>
+                <div class="photo icon ion-android-arrow-back"></div>
+                <div class="message"><span>{{ message.msg}}</span>
+                </div>
 
-            </section>
-        </div>
+            </div>
 
-        <form ng-submit="addMsg()">
-            <input type="text" ng-model="newMsg.msg" placeholder="type msg heres"/>
-            <input class="button button-small button-positive" type="submit" value="Send" />
-        </form>
+        </ion-content>
 
-
-    </ion-content>
+        <ion-footer-bar keyboard-attach class="bar-stable item-input-inset">
+            <label class="item-input-wrapper">
+                <input type="text" placeholder="Type your message" on-return="addMsg(); closeKeyboard()" ng-model="newMsg.msg" on-focus="inputUp()" on-blur="inputDown()" />
+            </label>
+            <button class="button button-clear" ng-click="addMsg()">
+                Send
+            </button>
+        </ion-footer-bar>
+    </ion-pane>
 </ion-view>
 
 
 
+**************
 
+
+<!--<ion-content class="content-stable " ng-style="{ bottom: data.keyboardHeight + 'px' }">-->
+    <!--<div>-->
+        <!--<img src="img/{{channelName}}.jpg" class="channel-pic" alt=""/>-->
+        <!--<button class="button button-positive float-right" ng-click="bingChannel(channelName)" ng-disabled="disableBtn">-->
+            <!--<i class="icon ion-android-add"></i>-->
+        <!--</button>-->
+    <!--</div>-->
+    <!--<div ng-repeat="msg in messageList" ng-class="{ other: message.userId != myId }" class="message">-->
+        <!--<div class="photo icon ion-android-arrow-back"></div>-->
+        <!--<div class="message"><span>{{ msg }}</span>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--&lt;!&ndash;<form ng-submit="addMsg()">&ndash;&gt;-->
+    <!--&lt;!&ndash;<input type="text" ng-model="newMsg.msg" placeholder="type msg heres"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;<input class="button button-small button-positive" type="submit" value="Send" />&ndash;&gt;-->
+    <!--&lt;!&ndash;</form>&ndash;&gt;-->
+
+    <!--<ion-footer-bar keyboard-attach class="bar-stable item-input-inset">-->
+        <!--<label class="item-input-wrapper">-->
+            <!--<input type="text" placeholder="Type your message" on-return="addMsg(); closeKeyboard()" ng-model="newMsg.msg" on-focus="inputUp()" on-blur="inputDown()" />-->
+        <!--</label>-->
+        <!--<button class="button button-clear" ng-click="addMsg()">-->
+            <!--Send-->
+        <!--</button>-->
+    <!--</ion-footer-bar>-->
+<!--</ion-content>-->
