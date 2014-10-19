@@ -4,10 +4,11 @@
 
 (function(){
     function itemInfoController(scope,msg,state,$timeout,$ionicScrollDelegate){
+        debugger;
         scope.newMsg = {channelName: state.params.name, msg:''};
         //console.log(msg.data[0].msg);
-        scope.messageList= [{msg : msg.data[0].msg, userId : scope.myId }];
-        scope.channelName = msg.data[0].name;
+        scope.messageList= [];
+        scope.channelName = state.params.name;
         scope.myId = '12345';
 
         scope.time = new Date().getTime();
@@ -37,7 +38,6 @@
             isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
 
         scope.sendMessage = function() {
-            debugger;
             alternate = !alternate;
             scope.messages.push({
                 userId: alternate ? '12345' : '54321',
