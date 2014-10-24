@@ -1,6 +1,7 @@
 <ion-view title="list of channels">
-    <ion-content class="padding">
 
+    <ion-content class="padding">
+        <h4>Welcome, {{user().displayName}} <img ng-src="{{user().thirdPartyUserData.picture.data.url}}"/></h4>
         <div class="list" ng-repeat="channel in channels">
             <div class="item item-avatar">
                 <div class="button-bar btn-position-center margin">

@@ -3,10 +3,16 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('tvchat', ['ionic','tvchat.services'])
+angular.module('tvchat', ['ionic','tvchat.services','firebase'])
     .config(function($stateProvider,$urlRouterProvider) {
         $urlRouterProvider.otherwise('/');
         $stateProvider
+            .state('login',{
+                url:'/login',
+                templateUrl:'login/login.html',
+                controller: 'LoginController'
+
+            })
             .state('index', {
                 url: '/',
                 templateUrl: 'main_list/main_list.html',
@@ -33,7 +39,20 @@ angular.module('tvchat', ['ionic','tvchat.services'])
 
             })
     })
-    .controller('wrapperController', ['$scope','$ionicNavBarDelegate','$stateParams','$timeout','$ionicLoading', function(scope,ionicNavBarDelegate,stateParams,timeout,$ionicLoading) {
+    .value('FIREBASE_REF','https://tv-chat.firebaseio.com/')
+    .value('userSession',{})
+    .controller('wrapperController', ['$scope','userSession','$ionicNavBarDelegate','$stateParams','$timeout','$ionicLoading', function(scope,userSession,ionicNavBarDelegate,stateParams,timeout,$ionicLoading) {
+
+
+        scope.user= function(){
+             return userSession.user;
+        }
+
+
+        scope.logout=function(){
+            userSession.auth.$logout();
+        }
+
 
         scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
 
@@ -75,7 +94,7 @@ angular.module('tvchat', ['ionic','tvchat.services'])
     .constant('socketConstant',{
         socket: io.connect('http://quiet-ridge-6377.herokuapp.com:80')
     })
-    .run(function($ionicPlatform,socketConstant) {
+    .run(function($ionicPlatform,socketConstant,$state,$rootScope,userSession) {
       $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -86,6 +105,22 @@ angular.module('tvchat', ['ionic','tvchat.services'])
         if(window.StatusBar) {
           StatusBar.styleDefault();
         }
+
+          $state.go('login');
+
+          $rootScope.$on('$firebaseSimpleLogin:login', function(event, user) {
+              userSession.user=user;
+              $state.go('index');
+          });
+
+          $rootScope.$on('$firebaseSimpleLogin:error', function(event, error) {
+              console.log('Error logging user in: ', error);
+          });
+
+          $rootScope.$on('$firebaseSimpleLogin:logout', function(event) {
+              debugger;
+              $state.go('login');
+          });
       });
         //making socket available all over the app:
       socket = socketConstant.socket;
