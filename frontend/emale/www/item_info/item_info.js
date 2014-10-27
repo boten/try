@@ -6,9 +6,13 @@
     function itemInfoController(scope,msg,state,$timeout,$ionicScrollDelegate,$firebase){
         var alternate,
             isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
-
-        var ref = new Firebase("https://tv-chat.firebaseio.com/"+state.params.name);
+    //todo : need to add start at time to only get msg from this time
+        var ref = new Firebase("https://tv-chat.firebaseio.com/"+state.params.name)//.startAt(Firebase.ServerValue.TIMESTAMP);//.on('child_added','');
         var sync = $firebase(ref);
+
+        scope.messageList = sync.$asArray();
+
+
         scope.messageList = sync.$asArray()
 
         scope.myId = '12345';
@@ -32,12 +36,16 @@
             alternate = !alternate;
             var newData =  {
                 msg: scope.newMsg.msg,
-                userId: alternate ? '12345' : '54321'
+                userId: alternate ? '12345' : '54321',
+                time: Firebase.ServerValue.TIMESTAMP
             };
             //scope.messageList.push(newData);
             //socket.emit("newMsg",scope.newMsg);
+            newData.$priority =  Firebase.ServerValue.TIMESTAMP;
+            //todo : need to add start at time to only get msg from this time
             scope.messageList.$add(newData);
             scope.newMsg.msg ='';
+
             $ionicScrollDelegate.scrollBottom();
         };
 
