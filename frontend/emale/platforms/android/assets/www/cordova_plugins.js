@@ -13,6 +13,13 @@ module.exports = [
         "clobbers": [
             "device"
         ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.inappbrowser/www/inappbrowser.js",
+        "id": "org.apache.cordova.inappbrowser.inappbrowser",
+        "clobbers": [
+            "window.open"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -20,7 +27,8 @@ module.exports.metadata =
 {
     "com.ionic.keyboard": "1.0.3",
     "org.apache.cordova.console": "0.2.10",
-    "org.apache.cordova.device": "0.2.11"
+    "org.apache.cordova.device": "0.2.11",
+    "org.apache.cordova.inappbrowser": "0.5.4-dev"
 }
 // BOTTOM OF METADATA
 });

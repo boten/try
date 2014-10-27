@@ -3,7 +3,7 @@
  */
 (function(){
     angular.module('tvchat.services',[])
-        .service('dataService',[dataService]);
+        .service('dataService',[dataService])
 
     function dataService(){
 
