@@ -3,40 +3,43 @@
  */
 
 (function(){
-    function itemInfoController(scope,msg,state,$timeout,$ionicScrollDelegate){
+    function itemInfoController(scope,msg,state,$timeout,$ionicScrollDelegate,$firebase){
         var alternate,
             isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
 
+        var ref = new Firebase("https://tv-chat.firebaseio.com/"+state.params.name);
+        var sync = $firebase(ref);
+        scope.messageList = sync.$asArray()
+
         scope.myId = '12345';
-        scope.newMsg = {channelName: state.params.name, msg:'' ,userId : scope.myId};
-        //console.log(msg.data[0].msg);
-        scope.messageList= [];
+        //scope.newMsg = {channelName: state.params.name, msg:'' ,userId : scope.myId};
         scope.channelName = state.params.name;
 
 
         scope.time = new Date().getTime();
 
-        socket.on("addNewMsg", function (msg) {
-            console.log('got new msg from host');
-            scope.$apply(function() {
-                //wrapped this within $apply
-                scope.messageList.push(msg);
-                $ionicScrollDelegate.scrollBottom();
-            });
-
-        });
+        //socket.on("addNewMsg", function (msg) {
+        //    console.log('got new msg from host');
+        //    scope.$apply(function() {
+        //        //wrapped this within $apply
+        //        scope.messageList.push(msg);
+        //        $ionicScrollDelegate.scrollBottom();
+        //    });
+        //
+        //});
 
         scope.addMsg = function(){
             alternate = !alternate;
-            scope.messageList.push(
-                {
-                    msg: scope.newMsg.msg,
-                    userId: alternate ? '12345' : '54321'
-                });
-            socket.emit("newMsg",scope.newMsg);
+            var newData =  {
+                msg: scope.newMsg.msg,
+                userId: alternate ? '12345' : '54321'
+            };
+            //scope.messageList.push(newData);
+            //socket.emit("newMsg",scope.newMsg);
+            scope.messageList.$add(newData);
             scope.newMsg.msg ='';
             $ionicScrollDelegate.scrollBottom();
-        }
+        };
 
 
 //        scope.sendMessage = function() {
@@ -67,6 +70,6 @@
     }
 
     angular.module('tvchat')
-        .controller('itemInfoController',['$scope','msg','$state','$timeout','$ionicScrollDelegate',itemInfoController]);
+        .controller('itemInfoController',['$scope','msg','$state','$timeout','$ionicScrollDelegate','$firebase',itemInfoController]);
 }());
 

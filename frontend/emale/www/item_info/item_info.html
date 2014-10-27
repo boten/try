@@ -11,6 +11,7 @@
             <div ng-repeat="message in messageList" ng-class="{ other: message.userId != myId }" class="message">
 
                 <div class="photo icon ion-chatboxes icon-color"></div>
+                {{message}}
                 <div class="message"><span>{{ message.msg}}</span>
                 </div>
 
