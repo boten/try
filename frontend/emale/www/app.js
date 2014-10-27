@@ -56,6 +56,7 @@ angular.module('tvchat', ['ionic','tvchat.services','firebase'])
 
         scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
 
+
             if (toState.resolve) {
                 $ionicLoading.show({
                     template: 'Loading...'
