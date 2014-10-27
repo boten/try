@@ -176,3 +176,9 @@ input[type=text]:focus, textarea:focus {
 .icon-color{
     color: #145fd7;;
 }
+
+.chat-img{
+    border-radius: 30px;
+    height: 20%;
+    width: 20%;
+}

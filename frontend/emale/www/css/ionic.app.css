@@ -7096,3 +7096,7 @@ a.button {
     height: 100%;
     background: none;
     padding: 0 15px; }
+
+  .button-left{
+      margin-left: auto;
+  }

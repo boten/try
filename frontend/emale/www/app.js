@@ -48,6 +48,10 @@ angular.module('tvchat', ['ionic','tvchat.services','firebase'])
              return userSession.user;
         }
 
+        scope.auth =function(){
+            return userSession.auth;
+        }
+
 
         scope.logout=function(){
             userSession.auth.$logout();
@@ -111,7 +115,7 @@ angular.module('tvchat', ['ionic','tvchat.services','firebase'])
 
           $rootScope.$on('$firebaseSimpleLogin:login', function(event, user) {
               userSession.user=user;
-              var y =userSession;
+               console.log('logged in');
               $state.go('index');
           });
 

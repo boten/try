@@ -3,9 +3,8 @@
  */
 
 (function(){
-    function itemInfoController(scope,msg,state,$timeout,$ionicScrollDelegate,$firebase){
-        var alternate,
-            isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
+    function itemInfoController(scope,msg,state,$timeout,$ionicScrollDelegate,$firebase,userSession){
+          var isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
     //todo : need to add start at time to only get msg from this time
         var ref = new Firebase("https://tv-chat.firebaseio.com/"+state.params.name)//.startAt(Firebase.ServerValue.TIMESTAMP);//.on('child_added','');
         var sync = $firebase(ref);
@@ -13,9 +12,9 @@
         scope.messageList = sync.$asArray();
 
 
-        scope.messageList = sync.$asArray()
-
-        scope.myId = '12345';
+        scope.messageList = sync.$asArray();
+        debugger;
+        scope.myId = userSession.user.id;
         //scope.newMsg = {channelName: state.params.name, msg:'' ,userId : scope.myId};
         scope.channelName = state.params.name;
 
@@ -33,10 +32,9 @@
         //});
 
         scope.addMsg = function(){
-            alternate = !alternate;
             var newData =  {
                 msg: scope.newMsg.msg,
-                userId: alternate ? '12345' : '54321',
+                userId: scope.myId,
                 time: Firebase.ServerValue.TIMESTAMP
             };
             //scope.messageList.push(newData);
@@ -78,6 +76,6 @@
     }
 
     angular.module('tvchat')
-        .controller('itemInfoController',['$scope','msg','$state','$timeout','$ionicScrollDelegate','$firebase',itemInfoController]);
+        .controller('itemInfoController',['$scope','msg','$state','$timeout','$ionicScrollDelegate','$firebase','userSession',itemInfoController]);
 }());
 
