@@ -1,17 +1,27 @@
-<ion-view title="watching channnel {{channelName}}">
+<ion-nav-bar class="nav-title-slide-ios7 bar-positive">
+    <ion-nav-back-button  class="button-icon" ng-click="goBack()">
+        <i class="ion-arrow-left-c"></i> Back
+    </ion-nav-back-button>
+    <ion-nav-buttons side="right">
+        <button class="button button-positive" ng-click="bingChannel(channelName)"
+                ng-disabled="disableBtn">
+            <i class="icon ion-android-add"></i>
+        </button>
+        <button ng-show="auth().user" ng-click="logout()" class="button button-royal">Log out</button>
+    </ion-nav-buttons>
+
+</ion-nav-bar>
+
+
+<ion-view title="watching channnel {{channelName}}" hide-back-button="false">
 
     <ion-pane class="messaging-view">
-        <ion-content class="content-stable" ng-style="{ bottom: data.keyboardHeight + 'px' }">
-            <img src="img/{{channelName}}.jpg" class="channel-pic" alt=""/>
-            <button class="button button-positive float-right" ng-click="bingChannel(channelName)"
-                    ng-disabled="disableBtn">
-                <i class="icon ion-android-add"></i>
-            </button>
-            <div ng-repeat="message in messageList" ng-class="{ other: message.userId != myId }" class="message">
 
+        <ion-content class="content-stable" ng-style="{ bottom: data.keyboardHeight + 'px' }">
+
+            <div ng-repeat="message in messageList" ng-class="{ other: message.userId != myId }" class="message">
                 <img ng-src="{{user().thirdPartyUserData.picture.data.url}}" class="photo icon"/>
                 <div class="message"><span>{{ message.msg}}</span></div>
-
             </div>
 
         </ion-content>

@@ -8,13 +8,13 @@ angular.module('tvchat', ['ionic','tvchat.services','firebase'])
         $urlRouterProvider.otherwise('/');
         $stateProvider
             .state('login',{
-                url:'/login',
+                url:'/',
                 templateUrl:'login/login.html',
                 controller: 'LoginController'
 
             })
             .state('index', {
-                url: '/',
+                url: '/index',
                 templateUrl: 'main_list/main_list.html',
                 resolve:{
                     channel: ['httpService',function(httpService){
@@ -111,7 +111,6 @@ angular.module('tvchat', ['ionic','tvchat.services','firebase'])
           StatusBar.styleDefault();
         }
 
-          $state.go('login');
 
           $rootScope.$on('$firebaseSimpleLogin:login', function(event, user) {
               userSession.user=user;

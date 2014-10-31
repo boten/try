@@ -40,31 +40,6 @@
   </head>
   <body ng-app="tvchat" ng-controller="wrapperController">
 
-    <ion-nav-bar class="nav-title-slide-ios7 bar-positive">
-        <ion-nav-back-button ng-hide="" class="button-icon" ng-click="goBack()">
-            <i class="ion-arrow-left-c"></i> Back
-        </ion-nav-back-button>
-        <button ng-show="auth().user" ng-click="logout()" class="button button-royal button-left">Log out</button>
-
-
-        <!--<ion-header-bar align-title="left" class="bar-positive">-->
-            <!--<div class="buttons">-->
-                <!--<button  ng-click="goBack()" class="button button-positive">-->
-                    <!--<i class="ion-arrow-left-c"></i> Back-->
-                <!--</button>-->
-            <!--</div>-->
-            <!--<div class="buttons">-->
-                <!--<button ng-show="auth().user" ng-click="logout()" class="button button-royal">Log out</button>-->
-            <!--</div>-->
-        <!--</ion-header-bar>-->
-
-        <!--<div class="bar bar-header">-->
-            <!--<button class="button icon ion-navicon"></button>-->
-            <!--<h1 class="title">Header Buttons</h1>-->
-            <!--<button class="button">Edit</button>-->
-        <!--</div>-->
-    </ion-nav-bar>
-
 
     <ion-nav-view animation="slide-left-right"></ion-nav-view>
 

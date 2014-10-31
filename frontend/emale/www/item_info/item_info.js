@@ -9,11 +9,17 @@
         var ref = new Firebase("https://tv-chat.firebaseio.com/"+state.params.name)//.startAt(Firebase.ServerValue.TIMESTAMP);//.on('child_added','');
         var sync = $firebase(ref);
 
+
+            // after 1 sec drop to buttom of page :
+        $timeout(function() {
+                $ionicScrollDelegate.scrollBottom();
+            }, 1000);
+
+
         scope.messageList = sync.$asArray();
 
 
         scope.messageList = sync.$asArray();
-        debugger;
         scope.myId = userSession.user.id;
         //scope.newMsg = {channelName: state.params.name, msg:'' ,userId : scope.myId};
         scope.channelName = state.params.name;

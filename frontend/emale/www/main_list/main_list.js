@@ -18,7 +18,6 @@
         scope.listenToChannel = function(channel){
             //channel.listening = true;
           //todo : why this fun calles 2 times ? when pressing the listen btn?
-          alert('reg')
             dataService.addListenChannel(channel)
             socket.emit('listenChannel',channel);
 
